@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.jin</groupId>
+    <artifactId>mycodes</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <modules>
+        <module>redis</module>
+        <module>querydsl</module>
+        <module>spi</module>
+        <module>reactive</module>
+        <module>pool</module>
+        <module>spring</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.2.RELEASE</version>
+    </parent>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
+        <redisson.version>3.10.0</redisson.version>
+        <jedis.version>2.9.0</jedis.version>
+        <querydsl.version>4.1.3</querydsl.version>
+        <slf4j-log4j12.version>1.6.1</slf4j-log4j12.version>
+        <apt-maven-plugin.version>1.1.3</apt-maven-plugin.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${jedis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-apt</artifactId>
+                <version>${querydsl.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-jpa</artifactId>
+                <version>${querydsl.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j-log4j12.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.6.0</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.4</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>com.mysema.maven</groupId>
+                    <artifactId>apt-maven-plugin</artifactId>
+                    <version>${apt-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>process</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>target/generated-sources/java</outputDirectory>
+                                <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+
+</project>

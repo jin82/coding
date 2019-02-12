@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="java" class="cn.jin.spring.bean.simple.Java"/>
+    <bean id="javaProject" class="cn.jin.spring.bean.simple.JavaProject">
+        <constructor-arg index="0" ref="java"/>
+        <property name="leader" ref="jin"/>
+    </bean>
+    <bean id="jin" class="cn.jin.spring.bean.simple.Member">
+        <property name="name" value="Jin"/>
+    </bean>
+</beans>
