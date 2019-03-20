@@ -1,0 +1,2 @@
+mockSlot=cn.jin.dubbo.spi.impl.MockSlot
+memorySlot=cn.jin.dubbo.spi.impl.MemorySlot

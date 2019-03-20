@@ -1,0 +1,2 @@
+bmwWheelMaker=cn.jin.dubbo.spi.adaptive.impl.BmwWheelMaker
+wulinWheelMaker=cn.jin.dubbo.spi.adaptive.impl.WulinWheelMaker
