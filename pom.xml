@@ -15,6 +15,8 @@
         <module>pool</module>
         <module>spring</module>
         <module>dubbo</module>
+        <module>zipkin</module>
+        <module>k8s</module>
     </modules>
     <packaging>pom</packaging>
 
