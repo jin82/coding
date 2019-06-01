@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-kv
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kv
+  template:
+    metadata:
+      labels:
+        app: kv
+    spec:
+      containers:
+        - name: kv
+          image: registry.cn-hangzhou.aliyuncs.com/jin82/k8s-kv
+          env:
+            - name: APP_TYPE
+              value: memory
+            - name: REDIS_HOST
+              value: "svc-redis"
+            - name: REDIS_PORT
+              value: "6379"
+          ports:
+            - containerPort: 7070
+              name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-kv
+  labels:
+    type: basic
+spec:
+  ports:
+    - port: 80
+      targetPort: http
+  selector:
+    app: kv

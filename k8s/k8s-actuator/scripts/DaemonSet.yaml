@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ds-actuator
+  labels:
+    type: basic
+spec:
+  selector:
+    matchLabels:
+      name: actuator
+  template:
+    metadata:
+      labels:
+        name: actuator
+        type: basic
+    spec:
+      nodeSelector:
+        actuator: enable
+      containers:
+        - name: actuator
+          image: registry.cn-hangzhou.aliyuncs.com/jin82/k8s-actuator
+          ports:
+            - containerPort: 3030
+
+
+
+
+

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-nameapi-svc
+spec:
+  type: ExternalName
+  externalName: zhuang.pinming.cn
+  ports:
+    - port: 80
+
+#kubectl exec rs-nodejs-22554 -- curl -H "x-requested-with: XMLHttpRequest" external-nameapi-svc/common/systime.htm

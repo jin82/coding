@@ -3,21 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>mycodes</artifactId>
+        <artifactId>k8s</artifactId>
         <groupId>cn.jin</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>k8s</artifactId>
+    <artifactId>k8s-log-collector</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>k8s-rest</module>
-        <module>k8s-kv</module>
-        <module>k8s-actuator</module>
-        <module>k8s-job</module>
-        <module>k8s-log-collector</module>
-        <module>k8s-restv2</module>
+        <module>k8s-log-server</module>
+        <module>k8s-log-client</module>
     </modules>
 
 

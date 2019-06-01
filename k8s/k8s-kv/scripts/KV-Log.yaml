@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-kv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kv
+  template:
+    metadata:
+      labels:
+        app: kv
+    spec:
+      containers:
+        - name: kv
+          image: registry.cn-hangzhou.aliyuncs.com/jin82/k8s-kv
+          imagePullPolicy: Always
+          env:
+            - name: APP_TYPE
+              value: memory
+            - name: REDIS_HOST
+              value: "svc-redis"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: APP_LOGGING_PATH
+              value: /application/log
+          ports:
+            - containerPort: 7070
+              name: http
+          volumeMounts:
+            - mountPath: /application/log
+              name: log
+        - name: log
+          image: registry.cn-hangzhou.aliyuncs.com/jin82/k8s-log-client
+          imagePullPolicy: Always
+          env:
+            - name: LOG_PATH
+              value: /application/log
+          volumeMounts:
+            - mountPath: /application/log
+              name: log
+              readOnly: true
+      volumes:
+        - name: log
+          emptyDir: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-kv
+  labels:
+    type: basic
+spec:
+  ports:
+    - port: 80
+      targetPort: http
+  selector:
+    app: kv

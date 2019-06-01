@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-nodejs
+  labels:
+    type: biz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs
+  template:
+    metadata:
+      labels:
+        app: nodejs
+    spec:
+      containers:
+        - name: nodejs
+          imagePullPolicy: Always
+          image: registry.cn-hangzhou.aliyuncs.com/jin82/k8s-nodejs
+          ports:
+            - containerPort: 8080
+              name: http

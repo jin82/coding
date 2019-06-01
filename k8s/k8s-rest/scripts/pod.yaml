@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rest-etst
+spec:
+  containers:
+    - name: rest
+      image: registry.cn-hangzhou.aliyuncs.com/jin82/k8s-rest:1.0
+      env:
+        - name: APP_PORT
+          value: 7777
+#      ports:
+#        - containerPort: "${APP_PORT}"
+#          name: http
+

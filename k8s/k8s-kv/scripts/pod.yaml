@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kv
+spec:
+  containers:
+  - name: kv
+    image: registry.cn-hangzhou.aliyuncs.com/jin82/k8s-kv
+    imagePullPolicy: Always
+#  imagePullSecrets:
+#  - name: jin82ali

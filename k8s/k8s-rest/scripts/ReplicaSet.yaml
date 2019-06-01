@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-rest
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rest
+  template:
+    metadata:
+      labels:
+        app: rest
+    spec:
+      containers:
+      - name: rest
+        image: registry.cn-hangzhou.aliyuncs.com/jin82/k8s-rest:1.0
+        imagePullPolicy: Always
+        env:
+          - name: APP_SERVER_PORT
+            value: "8080"
+        ports:
+          - containerPort: 8080
+            name: http

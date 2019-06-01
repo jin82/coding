@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-log-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-server
+  template:
+    metadata:
+      labels:
+        app: log-server
+    spec:
+      containers:
+      - name: log-server
+        image: registry.cn-hangzhou.aliyuncs.com/jin82/k8s-log-server
+        imagePullPolicy: Always
+        env:
+          - name: APP_SERVER_PORT
+            value: "4444"
+          - name: REDIS_HOST
+            value: "svc-redis"
+          - name: REDIS_PORT
+            value: "6379"
+        ports:
+          - containerPort: 4444
+            name: http
+        livenessProbe:
+          httpGet:
+            port: 4444
+            path: /health
+          initialDelaySeconds: 15
+          timeoutSeconds: 3
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-log-server
+  labels:
+    type: basic
+spec:
+  ports:
+    - port: 80
+      targetPort: http
+  selector:
+    app: log-server

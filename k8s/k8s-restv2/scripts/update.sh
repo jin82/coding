@@ -1,0 +1,1 @@
+kubectl set image deployment d-rest rest=registry.cn-hangzhou.aliyuncs.com/jin82/k8s-rest:4.0
